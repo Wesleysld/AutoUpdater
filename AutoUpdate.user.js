@@ -17,7 +17,7 @@
 
 var ws = {
     url: 'http://stats.wesleysld.nl',
-    debug: true,
+    debug: false,
     bootstrap: function() {
         $(window).on('hashchange', ws.urlChanged);
         ws.urlChanged();
