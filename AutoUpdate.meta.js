@@ -2,7 +2,7 @@
 // @name Statsupdater
 // @namespace
 // @version 1.0
-// @updateURL https://gist.github.com/Wesleysld/a0cb2a4d6e6ca4b7ca91/raw/20b2f5091a8b5230f97bbbcbca4823d5dad198cf/AutoUpdate.meta.js
+// @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
 // @match http://barafranca.com/*
