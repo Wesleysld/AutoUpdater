@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Statsupdater
 // @namespace
-// @version 1.0
+// @version 1.1
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
@@ -92,11 +92,11 @@ var ws = {
         var ingame = $(".icon_account:first").text();         
         return $("<div>").append(
             $("<p>").css("margin-bottom", "15px").text("You are logged in as " + localStorage.getItem("ws_email")),
-            // $("<p>").css("margin-bottom", "30px").append(
-              // $("<a>").attr("href", ws.url+ "/playerstats/?token=" + localStorage.getItem("ws_token")).text(
-                // "Check your statistics here."
-              // )
-            // ),
+            $("<p>").css("margin-bottom", "30px").append(
+              $("<a>").attr("href", ws.url+ "/stats/" + localStorage.getItem("ws_token") +".html").text(
+                "Check your statistics here."
+              )
+            ),
             $("<p>").text("Update your token:")
         ); 
     },
