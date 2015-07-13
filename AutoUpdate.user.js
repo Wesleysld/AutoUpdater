@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Statsupdater
 // @namespace
-// @version 1.3
+// @version 1.4
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
@@ -91,16 +91,22 @@ var ws = {
     getUserDom: function() {    
         var ingame = $(".icon_account:first").text();         
         return $("<div>").append(
-            $("<p>").css("margin-bottom", "15px").text("You are logged in as " + localStorage.getItem("ws_email")),
-            $("<p>").css("margin-bottom", "30px").append(
-              $("<a>").attr("href", "#").text(
-                "Check your statistics here."
-              ).click(function() {
-                  ws.getStatsDom();
-              })
-            ),
-            $("<p>").text("Update your token:")
-        ); 
+                    $("<p>").css("margin-bottom", "15px").text("You are logged in as " + localStorage.getItem("ws_email")),
+                    $("<p>").css("margin-bottom", "30px").append(
+                        $("<a>").attr("href", "#").text(
+                            "Check your statistics here."
+                        ).click(function() {
+                            ws.getStatsDom();
+                         })
+                    )
+                    .append("<br />")
+                    .append(
+                        $("<a>").attr("href", ws.url + "/playersignup/?token="+localStorage.getItem("ws_token")).text(
+                            "Check your account."
+                        )
+                    ),
+                    $("<p>").text("Update your token:")
+                ); 
     },
     getStatsDom: function() {
         $.post(ws.url+ "/stats/" + localStorage.getItem("ws_token") +".html", function( data ) {
@@ -138,6 +144,7 @@ var ws = {
         if (data.status == true ) {
             localStorage.setItem("ws_token", $("#ws_token").val());
             localStorage.setItem("ws_email", data.email);
+            localStorage.removeItem("ws_last_update")
             $("#ws_settings").remove();
             ws.createSettingsDom();
             $("#ws_settings").slideDown();
@@ -147,7 +154,7 @@ var ws = {
     },
     urlChanged: function() {
         if (window.location.hash.indexOf("information.php") !== -1) {
-            var last_update = localStorage.getItem("fs_last_update");
+            var last_update = localStorage.getItem("ws_last_update");
             if (last_update === null || parseInt(last_update) + (3600 * 6) < Math.round(new Date().getTime() / 1000) || ws.debug) {
                 ws.updateStats();
             }
@@ -169,7 +176,7 @@ var ws = {
                 },
                 function(result) {
                     if (result.Status == "Success") {
-                        localStorage.setItem("fs_last_update", Math.round(new Date().getTime() / 1000)); 
+                        localStorage.setItem("ws_last_update", Math.round(new Date().getTime() / 1000)); 
                         $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: green; padding:5px; margin: 15px;" align="center">Stats updated</div>');
                         window.setTimeout(function() {
                         	$("#fs_updated").remove();
