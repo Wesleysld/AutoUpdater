@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Statsupdater
 // @namespace
-// @version 1.1
+// @version 1.2
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
