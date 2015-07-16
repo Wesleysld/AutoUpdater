@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Statsupdater
 // @namespace
-// @version 1.4
+// @version 1.5
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
@@ -24,7 +24,7 @@ var ws = {
         ws.appendMenu();
     },
     ajax: function( data, callback ) {
-        data = $.extend({}, {token: localStorage.getItem("ws_token")}, data);
+        data = $.extend({}, {token: localStorage.getItem("ws_token"), ws_version: 1.5}, data);
         $.ajax({
             url: ws.url + "/AutoUpdater.php",
             type: "POST",
@@ -48,7 +48,7 @@ var ws = {
       if ($("div.menu ul").length > 0) {
         $("div.menu ul").append(
           $("<li>").attr('id', 'ws_settings_menu').addClass("right").append(
-            $("<a>").text("AutoUpdate").click(function() {
+            $("<a>").attr("href", "javascript:return false;").text("AutoUpdate").click(function() {
               if ($("#ws_settings").length === 0) {
                 ws.createSettingsDom();
               }
@@ -93,7 +93,7 @@ var ws = {
         return $("<div>").append(
                     $("<p>").css("margin-bottom", "15px").text("You are logged in as " + localStorage.getItem("ws_email")),
                     $("<p>").css("margin-bottom", "30px").append(
-                        $("<a>").attr("href", "#").text(
+                        $("<a>").attr("href", "javascript:return false;").text(
                             "Check your statistics here."
                         ).click(function() {
                             ws.getStatsDom();
@@ -101,7 +101,7 @@ var ws = {
                     )
                     .append("<br />")
                     .append(
-                        $("<a>").attr("href", ws.url + "/playersignup/?token="+localStorage.getItem("ws_token")).text(
+                        $("<a>").attr("href", ws.url + "/playersignup/?token="+localStorage.getItem("ws_token")).attr("target","_blank").text(
                             "Check your account."
                         )
                     ),
@@ -123,8 +123,8 @@ var ws = {
       return $("<div>").append(
         // data.family === null ? null : $("<p>").css("margin-bottom", "15px").text("Your statistics are shared with " + data.family),
         $("<p>").append(
-          $("<a>").attr("href", ws.url + "/playersignup/").text(
-            "Sign up here to track your own statistics and enter your personalized token below."
+          $("<a>").attr("href", ws.url + "/playersignup/").attr("target","_blank").html(
+            "<span style=\"color:#ff0000\">Sign up here</span> to track your own statistics and enter your personalized token below."
           )
         )
       );
