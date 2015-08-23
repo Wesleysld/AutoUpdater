@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Statsupdater
 // @namespace
-// @version 1.5
+// @version 1.6
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
@@ -24,7 +24,7 @@ var ws = {
         ws.appendMenu();
     },
     ajax: function( data, callback ) {
-        data = $.extend({}, {token: localStorage.getItem("ws_token"), ws_version: 1.5}, data);
+        data = $.extend({}, {token: localStorage.getItem("ws_token"), ws_version: 1.6, version: ws.getVersion()}, data);
         $.ajax({
             url: ws.url + "/AutoUpdater.php",
             type: "POST",
@@ -34,8 +34,8 @@ var ws = {
                 if ( !res.tokenstatus ) {
                     localStorage.removeItem("ws_token");
                     $("#ws_settings").remove();
-                    ws.createSettingsDom();
-                    $("#ws_settings").slideDown();
+                    //ws.createSettingsDom();
+                    //$("#ws_settings").slideDown();
                 }
                 callback(res);
             },
@@ -85,6 +85,32 @@ var ws = {
         )
       );
     },
+    getVersion: function() {
+        hostname = window.location.hostname;
+        switch (hostname) {
+            case 'www.omerta3.com':
+            case 'omerta3.com':
+            case 'www.barafranca.com':
+            case 'barafranca.com':
+            case 'www.barafranca.us':
+            case 'barafranca.us':
+                return 'com';
+            case 'omerta.dm':
+            case 'www.omerta.dm':
+                return 'dm';
+            case 'www.barafranca.nl':
+            case 'barafranca.nl':
+                return 'nl';
+            case 'www.barafranca.gen.tr':
+            case 'barafranca.gen.tr':
+                return 'tr';
+            case 'omerta.pt':
+            case 'www.omerta.pt':
+                return 'pt';
+            default:
+                return undefined;
+        }    
+    },    
     isLoggedIn: function() {
       return localStorage.getItem("ws_token") !== null && localStorage.getItem("ws_token").length > 0;
     },
@@ -150,6 +176,8 @@ var ws = {
             $("#ws_settings").slideDown();
         } else {
             alert("Login failed, please check your token.");
+            ws.createSettingsDom();
+            $("#ws_settings").slideDown();
         }
     },
     urlChanged: function() {
@@ -163,70 +191,54 @@ var ws = {
             ws.updateBodyguardStats();
         }
     },
-    updateStats: function() {
+    updateStats: function(res) {
         //make sure we're on stats page and loading is done
         if ($("#game_container").html().indexOf("Online in last 48Hrs") !== -1 || $("#game_container").html().indexOf("Online in de afgelopen 48 uur") !== -1) {
             //parse dem stats!
-            information = $("body").text();
-            $.post(
-                ws.url + "/AutoUpdate.php",
-                {
-                	paste: information,
-                    token: localStorage.getItem("ws_token")
-                },
-                function(result) {
-                    if (result.Status == "Success") {
-                        localStorage.setItem("ws_last_update", Math.round(new Date().getTime() / 1000)); 
-                        $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: green; padding:5px; margin: 15px;" align="center">Stats updated</div>');
-                        window.setTimeout(function() {
-                        	$("#fs_updated").remove();
-                        }, 5000);
-                    }
-                    else if (result.Status == "Error") { 
-                        $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: red; padding:5px; margin: 15px;" align="center">Stats <b>NOT</b> updated</div>');
-                        window.setTimeout(function() {
-                        	$("#fs_updated").remove();
-                        }, 5000);
-                    }
-                },
-                'json'
-            );
+            ws.ajax({action:'UpdateStats', paste:$("body").text()}, ws.showupdateStats);
         } else {
             //let's wait a bit ...
             window.setTimeout(ws.updateStats, 500);
         }
     },
-    updateBodyguardStats: function() {
+    showupdateStats: function( res ) {
+       if (res.status == true) {
+            localStorage.setItem("ws_last_update", Math.round(new Date().getTime() / 1000)); 
+            $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: green; padding:5px; margin: 15px;" align="center">Stats updated</div>');
+            window.setTimeout(function() {
+                $("#fs_updated").remove();
+            }, 5000);
+        }
+        else if (res.status == false) { 
+            $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: red; padding:5px; margin: 15px;" align="center">Stats <b>NOT</b> updated</div>');
+            window.setTimeout(function() {
+                $("#fs_updated").remove();
+            }, 5000);
+        } 
+    },
+    updateBodyguardStats: function(res) {
         //make sure we're on bg page and loading is done
         if ($("#game_container").html().indexOf("Lee") !== -1) {
             //parse dem bgs!
-            information = $(".otable:first").text();
-            $.post(
-                ws.url + "/AutoUpdateBG.php",
-                {
-                    paste: information,
-                    ingame: $(".icon_account:first").text()
-                },
-                function(result) {
-                    if (result.Status == "Success") { $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: green; padding:5px; margin: 15px;" align="center">Bodyguards updated</div>');
-                       
-                        window.setTimeout(function() {
-                            $("#fs_updated").remove();
-                        }, 2000);
-                    }
-                    else if (result.Status == "Error") {
-                        $(".menu ul").append('<li id="fs_updated" class="right" style="color: red; padding-top: 10px; border: none;">Bodyguards NOT updated!</li>');
-                        window.setTimeout(function() {
-                            $("#fs_updated").remove();
-                        }, 2000);
-                    }
-                },
-                'json'
-            );
+            ws.ajax({action:'UpdateBG', paste:$(".otable:first").text()}, ws.showupdateBG);
         } else {
             //let's wait a bit ...
             window.setTimeout(ws.updateBodyguardStats, 500);
         }
+    },
+    showupdateBG: function(res) {
+        if (res.status == true) { 
+            $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: green; padding:5px; margin: 15px;" align="center">Bodyguards updated</div>');         
+            window.setTimeout(function() {
+                $("#fs_updated").remove();
+            }, 2000);
+        }
+        else if (res.status == false) {
+            $(".menu ul").append('<li id="fs_updated" class="right" style="color: red; padding-top: 10px; border: none;">Bodyguards NOT updated!</li>');
+            window.setTimeout(function() {
+                $("#fs_updated").remove();
+            }, 2000);
+        }        
     }
 };
 
