@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Statsupdater
 // @namespace
-// @version 1.6
+// @version 1.7
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
@@ -24,7 +24,7 @@ var ws = {
         ws.appendMenu();
     },
     ajax: function( data, callback ) {
-        data = $.extend({}, {token: localStorage.getItem("ws_token"), ws_version: 1.6, version: ws.getVersion()}, data);
+        data = $.extend({}, {token: localStorage.getItem("ws_token"), ws_version: 1.7, version: ws.getVersion()}, data);
         $.ajax({
             url: ws.url + "/AutoUpdater.php",
             type: "POST",
@@ -210,10 +210,10 @@ var ws = {
             }, 5000);
         }
         else if (res.status == false) { 
-            $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: red; padding:5px; margin: 15px;" align="center">Stats <b>NOT</b> updated</div>');
-            window.setTimeout(function() {
-                $("#fs_updated").remove();
-            }, 5000);
+            // $("#game_container").prepend('<div id="fs_updated" style="display: block; font: 12px Arial; background-color: rgb(255, 244, 168); color: red; padding:5px; margin: 15px;" align="center">Stats <b>NOT</b> updated</div>');
+            // window.setTimeout(function() {
+                // $("#fs_updated").remove();
+            // }, 5000);
         } 
     },
     updateBodyguardStats: function(res) {
@@ -234,10 +234,10 @@ var ws = {
             }, 2000);
         }
         else if (res.status == false) {
-            $(".menu ul").append('<li id="fs_updated" class="right" style="color: red; padding-top: 10px; border: none;">Bodyguards NOT updated!</li>');
-            window.setTimeout(function() {
-                $("#fs_updated").remove();
-            }, 2000);
+            // $(".menu ul").append('<li id="fs_updated" class="right" style="color: red; padding-top: 10px; border: none;">Bodyguards NOT updated!</li>');
+            // window.setTimeout(function() {
+                // $("#fs_updated").remove();
+            // }, 2000);
         }        
     }
 };
