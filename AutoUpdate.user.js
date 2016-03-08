@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Statsupdater
 // @namespace
-// @version 1.7
+// @version 1.8
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
@@ -16,7 +16,7 @@
 // ==/UserScript==
 
 var ws = {
-    url: 'http://stats.wesleysld.nl',
+    url: 'https://stats.wesleysld.nl',
     debug: false,
     bootstrap: function() {
         $(window).on('hashchange', ws.urlChanged);
