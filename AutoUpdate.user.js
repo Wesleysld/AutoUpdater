@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Statsupdater
 // @namespace
-// @version 1.8
+// @version 1.9
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
 // @description Statsupdater
 // @match http://barafranca.nl/*
@@ -193,7 +193,7 @@ var ws = {
     },
     updateStats: function(res) {
         //make sure we're on stats page and loading is done
-        if ($("#game_container").html().indexOf("Online in last 48Hrs") !== -1 || $("#game_container").html().indexOf("Online in de afgelopen 48 uur") !== -1) {
+        if ($("#game_container").html().indexOf("Online in last 48Hrs") !== -1 || $("#game_container").html().indexOf("Online in de afgelopen 48 uur") !== -1 || $("#game_container").html().indexOf("Son 48 Saatlik Online Suren") !== -1  ) {
             //parse dem stats!
             ws.ajax({action:'UpdateStats', paste:$("body").text()}, ws.showupdateStats);
         } else {
