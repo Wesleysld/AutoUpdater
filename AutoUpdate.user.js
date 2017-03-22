@@ -45,7 +45,4 @@ var AutoUpdate = {
         }
     }
 }
-setTimeout(function(){AutoUpdate.Update},10000);
-
-
-
+$(document).ready(function(){setTimeout(function(){AutoUpdate.Update},5000)});
