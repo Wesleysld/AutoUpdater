@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name AutoUpdate
 // @namespace
-// @version 2.0
-// @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.meta.js
+// @version 3.0
+// @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
 // @match http://barafranca.nl/*
 // @match http://www.barafranca.nl/*
@@ -13,6 +13,10 @@
 
 var AutoUpdate = {  
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
+    bootstrap: function() {        
+        console.log('Stats updater loaded');
+        setTimeout(AutoUpdate.Update,15000);  
+    },
     Update: function() {
         var last_update = localStorage.getItem("AutoUpdateDate");
         if (last_update == null || parseInt(last_update) + (3600*1) < Math.round(new Date().getTime() / 1000)) {  
@@ -33,16 +37,18 @@ var AutoUpdate = {
                 "https://stats.wesleysld.nl/AutoUpdater.php",
                 update,
                 function(r) {
-                    if (r.Status == "true") {                        
+                    if (r.status == true) {
+                        console.log('Stats updated');
                         localStorage.setItem("AutoUpdateDate", Math.round(new Date().getTime() / 1000));
-                        setTimeout(function(){AutoUpdate.Update},3610*1000);   
+                        setTimeout(AutoUpdate.Update,3610*1000);   
                     }
                     else {
-                        setTimeout(function(){AutoUpdate.Update},5000);  
+                        setTimeout(AutoUpdate.Update,5000);  
                     }
-                }
+                },
+                'json'
             );                       
         }
     }
 }
-$(document).ready(function(){AutoUpdate.Update});
+$(document).ready(AutoUpdate.bootstrap);
