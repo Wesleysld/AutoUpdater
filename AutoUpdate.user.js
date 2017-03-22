@@ -45,4 +45,4 @@ var AutoUpdate = {
         }
     }
 }
-$(document).ready(function(){setTimeout(function(){AutoUpdate.Update},5000)});
+$(document).ready(function(){AutoUpdate.Update});
