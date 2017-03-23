@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name AutoUpdate
 // @namespace
-// @version 3.1
+// @version 4
+// @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
 // @match http://barafranca.nl/*
