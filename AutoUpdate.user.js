@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name AutoUpdate
 // @namespace
-// @version 3.0
+// @version 3.1
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
 // @match http://barafranca.nl/*
@@ -15,7 +15,7 @@ var AutoUpdate = {
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {        
         console.log('Stats updater loaded');
-        setTimeout(AutoUpdate.Update,15000);  
+        setTimeout(AutoUpdate.Update,1500);  
     },
     Update: function() {
         var last_update = localStorage.getItem("AutoUpdateDate");
@@ -48,6 +48,9 @@ var AutoUpdate = {
                 },
                 'json'
             );                       
+        }
+        else {
+            setTimeout(AutoUpdate.Update,60000);
         }
     }
 }
