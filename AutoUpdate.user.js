@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name AutoUpdate
 // @namespace
-// @version 4
+// @version 5
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
@@ -16,7 +16,7 @@ var AutoUpdate = {
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {        
         console.log('Stats updater loaded');
-        setTimeout(AutoUpdate.Update,1500);  
+        setTimeout(AutoUpdate.Update,15000);  
     },
     Update: function() {
         var last_update = localStorage.getItem("AutoUpdateDate");
