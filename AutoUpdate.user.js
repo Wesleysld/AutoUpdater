@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name AutoUpdate
 // @namespace
-// @version 6
+// @version 7
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
@@ -13,7 +13,7 @@
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 6,
+    version: 7,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {        
         console.log('Stats updater loaded');
@@ -41,6 +41,10 @@ var AutoUpdate = {
                 function(r) {
                     if (r.status == true) {
                         console.log('Stats updated');
+                        $('<img>').addClass('AutoUpdateRemoveMe').attr('src', 'https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/pony.gif').css('height', '100%').css('position', 'absolute').css('right', '0').appendTo('.blood').animate({right: "+=2000"}, 7000);
+                        setTimeout(function(){  $('<div>').addClass('AutoUpdateRemoveMe').html('<b>Stats have been updated!</b>').css({position:'absolute',width:'500px',color:'#FF0', 'font-size':'30px', left: '50%'}).appendTo($('.blood'));  }, 5000);
+                        setTimeout(function(){  $('.AutoUpdateRemoveMe').remove() }, 9000);
+                        
                         localStorage.setItem("AutoUpdateDate", Math.round(new Date().getTime() / 1000));
                         setTimeout(AutoUpdate.Update,3610*1000);   
                     }
