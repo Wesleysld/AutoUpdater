@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name AutoUpdate
+// @name AutoUpdate (8)
 // @namespace
-// @version 7
+// @version 8
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
@@ -13,7 +13,7 @@
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 7,
+    version: 8,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {        
         console.log('Stats updater loaded');
@@ -52,7 +52,7 @@ var AutoUpdate = {
                         setTimeout(AutoUpdate.Update,5000);  
                     }                    
                     if ( r.version > AutoUpdate.version ) {
-                        if ( confirm('There is a new AutoUpdater version.\nCurrent: '+AutoUpdate.version+' New: '+r.version+'\n\nDo you want to update now?') ) {
+                        if ( confirm('There is a new AutoUpdater version.\nCurrent: '+AutoUpdate.version+' New: '+r.version+'\n\nPlease download the new updater and remove the old one.') ) {
                             document.location = 'https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js';
                         }
                     }
