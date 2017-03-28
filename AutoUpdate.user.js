@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name AutoUpdate (8)
+// @name AutoUpdate (9)
 // @namespace
-// @version 8
+// @version 9
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
@@ -13,18 +13,30 @@
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 8,
+    version: 9,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
-    bootstrap: function() {        
-        console.log('Stats updater loaded');
-        setTimeout(AutoUpdate.Update,15000);  
+    bootstrap: function() {  
+        var AutoUpdateVersion =  parseInt(localStorage.getItem("AutoUpdateVersion"));
+        if ( AutoUpdateVersion == Nan ) {
+            localStorage.setItem("AutoUpdateDate", AutoUpdate.version); 
+            AutoUpdateVersion = AutoUpdate.version;
+        }
+        if ( AutoUpdate.version > AutoUpdateVersion ) {
+            alert('Old AutoUpdate detected (Version '+AutoUpdateVersion+'). Please remove it.');
+        }
+        else {
+            console.log('Stats updater loaded');
+            setTimeout(AutoUpdate.Update,15000);  
+        }
     },
     Update: function() {
         var last_update = localStorage.getItem("AutoUpdateDate");
         if (last_update == null || parseInt(last_update) + (3600*1) < Math.round(new Date().getTime() / 1000)) {  
             console.log('Updating stats');
             var update = {
+                            updater:version,
                             name:omerta.character.info.name(),
+                            version:omerta.gameTitle.toString().match(/Omerta \((\w*)\)/)[1],
                             position:omerta.character.progress.position(),
                             points:omerta.character.progress.leader_points(),
                             family:omerta.services.account.data.family,
@@ -36,7 +48,7 @@ var AutoUpdate = {
                             kill:omerta.character.progress.kill()
             }
             $.post(
-                "https://stats.wesleysld.nl/AutoUpdater.php",
+                AutoUpdate.url,
                 update,
                 function(r) {
                     if (r.status == true) {
