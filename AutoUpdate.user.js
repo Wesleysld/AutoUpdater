@@ -34,7 +34,7 @@ var AutoUpdate = {
         if (last_update == null || parseInt(last_update) + (3600*1) < Math.round(new Date().getTime() / 1000)) {  
             console.log('Updating stats');
             var update = {
-                            updater:version,
+                            updater:AutoUpdate.version,
                             name:omerta.character.info.name(),
                             version:omerta.gameTitle.toString().match(/Omerta \((\w*)\)/)[1],
                             position:omerta.character.progress.position(),
