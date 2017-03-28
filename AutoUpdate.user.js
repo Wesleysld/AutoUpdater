@@ -25,7 +25,7 @@ var AutoUpdate = {
             alert('Old AutoUpdate detected (Version '+AutoUpdateVersion+'). Please remove it.');
         }
         else {
-            console.log('Stats updater loaded');
+            console.log('Stats updater loaded ('+AutoUpdate.version+')');
             setTimeout(AutoUpdate.Update,15000);  
         }
     },
