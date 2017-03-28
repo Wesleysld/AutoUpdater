@@ -17,7 +17,7 @@ var AutoUpdate = {
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {  
         var AutoUpdateVersion =  parseInt(localStorage.getItem("AutoUpdateVersion"));
-        if ( AutoUpdateVersion == Nan ) {
+        if ( AutoUpdateVersion == NaN ) {
             localStorage.setItem("AutoUpdateDate", AutoUpdate.version); 
             AutoUpdateVersion = AutoUpdate.version;
         }
