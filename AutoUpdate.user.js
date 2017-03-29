@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name AutoUpdate (9)
+// @name AutoUpdate (10)
 // @namespace
-// @version 9
+// @version 10
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
@@ -17,12 +17,14 @@
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 9,
+    version: 10,
+    OmertaVersion: null,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {  
-        var AutoUpdateVersion =  parseInt(localStorage.getItem("AutoUpdateVersion"));
+        AutoUpdate.OmertaVersion = omerta.gameTitle.toString().match(/Omerta \((\w*)\)/)[1];
+        var AutoUpdateVersion =  parseInt(localStorage.getItem("AutoUpdateVersion"+AutoUpdate.OmertaVersion));
         if ( AutoUpdateVersion == NaN ) {
-            localStorage.setItem("AutoUpdateDate", AutoUpdate.version); 
+            localStorage.setItem("AutoUpdateDate"+AutoUpdate.OmertaVersion, AutoUpdate.version); 
             AutoUpdateVersion = AutoUpdate.version;
         }
         if ( AutoUpdate.version > AutoUpdateVersion ) {
@@ -34,13 +36,13 @@ var AutoUpdate = {
         }
     },
     Update: function() {
-        var last_update = localStorage.getItem("AutoUpdateDate");
+        var last_update = localStorage.getItem("AutoUpdateDate"+AutoUpdate.OmertaVersion);
         if (last_update == null || parseInt(last_update) + (3600*1) < Math.round(new Date().getTime() / 1000)) {  
             console.log('Updating stats');
             var update = {
                             updater:AutoUpdate.version,
                             name:omerta.character.info.name(),
-                            version:omerta.gameTitle.toString().match(/Omerta \((\w*)\)/)[1],
+                            version:AutoUpdate.OmertaVersion,
                             position:omerta.character.progress.position(),
                             points:omerta.character.progress.leader_points(),
                             family:omerta.services.account.data.family,
@@ -61,7 +63,7 @@ var AutoUpdate = {
                         setTimeout(function(){  $('<div>').addClass('AutoUpdateRemoveMe').html('<b>Stats have been updated!</b>').css({position:'absolute',width:'500px',color:'#FF0', 'font-size':'30px', left: '50%'}).appendTo($('.blood'));  }, 5000);
                         setTimeout(function(){  $('.AutoUpdateRemoveMe').remove() }, 9000);
                         
-                        localStorage.setItem("AutoUpdateDate", Math.round(new Date().getTime() / 1000));
+                        localStorage.setItem("AutoUpdateDate"+AutoUpdate.OmertaVersion, Math.round(new Date().getTime() / 1000));
                         setTimeout(AutoUpdate.Update,3610*1000);   
                     }
                     else {
