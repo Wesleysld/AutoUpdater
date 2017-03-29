@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name AutoUpdate (10)
+// @name AutoUpdate (11)
 // @namespace
-// @version 10
+// @version 11
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
@@ -17,7 +17,7 @@
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 10,
+    version: 11,
     OmertaVersion: null,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {  
@@ -83,4 +83,5 @@ var AutoUpdate = {
         }
     }
 }
-$(document).ready(AutoUpdate.bootstrap);
+//$(document).ready(AutoUpdate.bootstrap);
+setTimeout(AutoUpdate.bootstrap,10000);
