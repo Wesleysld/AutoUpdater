@@ -9,6 +9,10 @@
 // @match http://www.barafranca.nl/*
 // @match https://barafranca.nl/*
 // @match https://www.barafranca.nl/*
+// @match http://omerta.pt/*
+// @match http://www.omerta.pt/*
+// @match https://omerta.pt/*
+// @match https://www.omerta.pt/*
 // @copyright Wesleysld
 // ==/UserScript==
 
