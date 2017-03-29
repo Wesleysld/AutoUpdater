@@ -21,7 +21,7 @@ var AutoUpdate = {
     OmertaVersion: null,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {  
-        AutoUpdate.OmertaVersion = omerta.gameTitle.toString().match(/Omerta \((\w*)\)/)[1];
+        AutoUpdate.OmertaVersion = omerta.gameTitle.toString().match(/Omerta \((.*?)\)/)[1];
         var AutoUpdateVersion =  parseInt(localStorage.getItem("AutoUpdateVersion"+AutoUpdate.OmertaVersion));
         if ( AutoUpdateVersion == NaN ) {
             localStorage.setItem("AutoUpdateDate"+AutoUpdate.OmertaVersion, AutoUpdate.version); 
