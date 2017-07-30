@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name AutoUpdate (11)
+// @name AutoUpdate (12)
 // @namespace
-// @version 11
+// @version 12
 // @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
@@ -9,6 +9,10 @@
 // @match http://www.barafranca.nl/*
 // @match https://barafranca.nl/*
 // @match https://www.barafranca.nl/*
+// @match http://barafranca.com/*
+// @match http://www.barafranca.com/*
+// @match https://barafranca.com/*
+// @match https://www.barafranca.com/*
 // @match http://omerta.pt/*
 // @match http://www.omerta.pt/*
 // @match https://omerta.pt/*
@@ -17,7 +21,7 @@
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 11,
+    version: 12,
     OmertaVersion: null,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {  
