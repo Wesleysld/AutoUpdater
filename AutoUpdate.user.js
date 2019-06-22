@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name AutoUpdate (12)
+// @name AutoUpdate (13)
 // @namespace
-// @version 12
-// @updateURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
-// @downloadURL https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js
+// @version 13
+// @updateURL https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js
+// @downloadURL https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
 // @match http://barafranca.nl/*
 // @match http://www.barafranca.nl/*
@@ -12,6 +12,7 @@
 // @match http://barafranca.com/*
 // @match http://www.barafranca.com/*
 // @match https://barafranca.com/*
+// @match https://play.barafranca.com/*
 // @match https://www.barafranca.com/*
 // @match http://omerta.pt/*
 // @match http://www.omerta.pt/*
@@ -21,7 +22,7 @@
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 12,
+    version: 13,
     OmertaVersion: null,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {  
@@ -63,7 +64,7 @@ var AutoUpdate = {
                 function(r) {
                     if (r.status == true) {
                         console.log('Stats updated');
-                        $('<img>').addClass('AutoUpdateRemoveMe').attr('src', 'https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/pony.gif').css('height', '100%').css('position', 'absolute').css('right', '0').appendTo('.blood').animate({right: "+=2000"}, 7000);
+                        $('<img>').addClass('AutoUpdateRemoveMe').attr('src', 'https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/pony.gif').css('height', '100%').css('position', 'absolute').css('right', '0').appendTo('.blood').animate({right: "+=2000"}, 7000);
                         setTimeout(function(){  $('<div>').addClass('AutoUpdateRemoveMe').html('<b>Stats have been updated!</b>').css({position:'absolute',width:'500px',color:'#FF0', 'font-size':'30px', left: '50%'}).appendTo($('.blood'));  }, 5000);
                         setTimeout(function(){  $('.AutoUpdateRemoveMe').remove() }, 9000);
                         
@@ -75,7 +76,7 @@ var AutoUpdate = {
                     }                    
                     if ( r.version > AutoUpdate.version ) {
                         if ( confirm('There is a new AutoUpdater version.\nCurrent: '+AutoUpdate.version+' New: '+r.version+'\n\nPlease download the new updater and remove the old one.') ) {
-                            document.location = 'https://raw.githubusercontent.com/Wesleysld/AutoUpdater/master/AutoUpdate.user.js';
+                            document.location = 'https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js';
                         }
                     }
                 },
