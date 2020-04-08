@@ -1,7 +1,6 @@
 // ==UserScript==
-// @name AutoUpdate (13)
-// @namespace
-// @version 13
+// @name AutoUpdate (14)
+// @version 14
 // @updateURL https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
@@ -18,15 +17,15 @@
 // @match http://www.omerta.pt/*
 // @match https://omerta.pt/*
 // @match https://www.omerta.pt/*
-// @copyright Wesleysld
+// @author Wesleysld
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 13,
+    version: 14,
     OmertaVersion: null,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {  
-        AutoUpdate.OmertaVersion = omerta.gameTitle.toString().match(/Omerta \((.*?)\)/)[1];
+        AutoUpdate.OmertaVersion = unsafeWindow.omerta.gameTitle.toString().match(/Omerta \((.*?)\)/)[1];
         var AutoUpdateVersion =  parseInt(localStorage.getItem("AutoUpdateVersion"+AutoUpdate.OmertaVersion));
         if ( AutoUpdateVersion == NaN ) {
             localStorage.setItem("AutoUpdateDate"+AutoUpdate.OmertaVersion, AutoUpdate.version); 
@@ -46,17 +45,17 @@ var AutoUpdate = {
             console.log('Updating stats');
             var update = {
                             updater:AutoUpdate.version,
-                            name:omerta.character.info.name(),
+                            name:unsafeWindow.omerta.character.info.name(),
                             version:AutoUpdate.OmertaVersion,
-                            position:omerta.character.progress.position(),
-                            points:omerta.character.progress.leader_points(),
-                            family:omerta.services.account.data.family,
-                            rank:omerta.services.account.data.rankname,
-                            rankprogress:omerta.services.account.data.progressbars.rankprogress,
-                            raceform:omerta.services.account.data.progressbars.raceform,
-                            money:parseInt(omerta.character.progress.bank())+parseInt(omerta.character.progress.money()),
-                            bullets:omerta.character.progress.bullets(),
-                            kill:omerta.character.progress.kill()
+                            position:unsafeWindow.omerta.character.progress.position(),
+                            points:unsafeWindow.omerta.character.progress.leader_points(),
+                            family:unsafeWindow.omerta.services.account.data.family,
+                            rank:unsafeWindow.omerta.services.account.data.rankname,
+                            rankprogress:unsafeWindow.omerta.services.account.data.progressbars.rankprogress,
+                            raceform:unsafeWindow.omerta.services.account.data.progressbars.raceform,
+                            money:parseInt(unsafeWindow.omerta.character.progress.bank())+parseInt(unsafeWindow.omerta.character.progress.money()),
+                            bullets:unsafeWindow.omerta.character.progress.bullets(),
+                            kill:unsafeWindow.omerta.character.progress.kill()
             }
             $.post(
                 AutoUpdate.url,
