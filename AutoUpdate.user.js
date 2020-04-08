@@ -1,27 +1,17 @@
 // ==UserScript==
-// @name AutoUpdate (14)
-// @version 14
+// @name AutoUpdate
+// @version 15
 // @updateURL https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
-// @match http://barafranca.nl/*
-// @match http://www.barafranca.nl/*
-// @match https://barafranca.nl/*
-// @match https://www.barafranca.nl/*
-// @match http://barafranca.com/*
-// @match http://www.barafranca.com/*
 // @match https://barafranca.com/*
 // @match https://play.barafranca.com/*
 // @match https://www.barafranca.com/*
-// @match http://omerta.pt/*
-// @match http://www.omerta.pt/*
-// @match https://omerta.pt/*
-// @match https://www.omerta.pt/*
 // @author Wesleysld
 // ==/UserScript==
 
 var AutoUpdate = {  
-    version: 14,
+    version: 15,
     OmertaVersion: null,
     url: 'https://stats.wesleysld.nl/AutoUpdater.php',
     bootstrap: function() {  
@@ -56,7 +46,8 @@ var AutoUpdate = {
                             money:parseInt(unsafeWindow.omerta.character.progress.bank())+parseInt(unsafeWindow.omerta.character.progress.money()),
                             bullets:unsafeWindow.omerta.character.progress.bullets(),
                             kill:unsafeWindow.omerta.character.progress.kill()
-            }
+            }            
+            
             $.post(
                 AutoUpdate.url,
                 update,
@@ -87,5 +78,5 @@ var AutoUpdate = {
         }
     }
 }
-//$(document).ready(AutoUpdate.bootstrap);
+
 setTimeout(AutoUpdate.bootstrap,10000);
