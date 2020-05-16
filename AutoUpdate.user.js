@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name AutoUpdate
-// @version 15
+// @version 16
 // @updateURL https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js
 // @downloadURL https://raw.githubusercontent.com/YelsewB/AutoUpdater/master/AutoUpdate.user.js
 // @description AutoUpdate
 // @match https://barafranca.com/*
-// @match https://play.barafranca.com/*
 // @match https://www.barafranca.com/*
+// @match https://barafranca.nl/*
+// @match https://www.barafranca.nl/*
 // @author Wesleysld
 // ==/UserScript==
 
